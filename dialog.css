@@ -1,0 +1,22 @@
+@import url(css/reset.css);
+@import url(css/default.css);
+@import url(css/style.css);
+
+.dialog_img1,
+.dialog_img2,
+.dialog_img3,
+.dialog_img4,
+.dialog_h1,
+.dialog_portfolio
+{
+padding:1rem; 
+
+color:hsla(0,0%,100%,1);
+box-shadow:hsla(0,0%,0%,.6) 0 .4rem .4rem;
+background:hsla(240,100%,50%,1);
+z-index:999;
+}
+.dialog_h1
+{
+margin-left:5vw;
+}

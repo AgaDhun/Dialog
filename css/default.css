@@ -1,0 +1,12 @@
+/*--default parameter--*/
+header,main,footer,section
+{
+display:block;
+width:calc(100%);
+margin:0 auto;
+}
+h1,h2,h3,h4,h5,h6
+{
+text-align:center;
+margin:0 auto;
+}
