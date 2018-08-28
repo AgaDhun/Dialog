@@ -1,7 +1,7 @@
 # Микро_скрипт: dialog.js
 
 	Поможет вам, быстро и легко создавать всплывающее подсказки.
-	-Демо:[ открыть ](http://portfolio.xn----ftbdevagxcz8j.xn--p1ai/trailer/dialog/) 
+	-Демо:[http://portfolio.xn----ftbdevagxcz8j.xn--p1ai/trailer/dialog/](открыть) 
 	
 #Пользовательская инструкция.
 
