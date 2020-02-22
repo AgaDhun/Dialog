@@ -1,18 +1,31 @@
 'use strict';
-window.onload = function(){
+
+
 //============Dialog================
 var dialog = {
-	dialogObject:Object.create(null),
 	getDialog:function(){
-	//данные("слушатель":"диалог")
-	dialog.dialogObject= {
-		"h1":"dialog.js поможет вам, быстро и легко создавать всплывающее подсказки.",
-		"img1":"Граф Лев Николаевич Толстой.<br>Русский писатель и мыслитель.<br>Один из величайших<br>писателей-романистов мира.",
-		"img2":"Александр Сергеевич Пушкин.<br>Русский поэт, драматург, прозаик.<br>Один из самых авторитетных <br>литературных деятелей XIX века.",
-		"img3":"Иван Сергеевич Тургенев.<br>Русский писатель-реалист, поэт,<br>публицист, драматург, переводчик.<br>Классик русской литературы",
-		"img4":"Антон Павлович Чехов.<br>Русский писатель, прозаик,<br>драматург.<br>Классик мировой литературы.",
-		"portfolio":"Dhunga - URL - Portfolio",
-		};
+	//создать объект для данные("слушатель":"сообщение")
+	const dialogObject = Object.create(null);
+	//запрос файла + загрузка данных файла в объект
+	function getJson(url = "dialog.json")
+	{
+		//запрос файла .json
+		fetch(url).then(
+			response =>
+			{
+				//проверка на ответ
+				return response.ok ? response.json(): "false";
+			}
+		).then(
+			json =>
+			{
+				//загрузить в данные в объект
+				Object.assign(dialogObject, json);
+			}
+		);
+	};
+	getJson();
+
 	//создать контейнер(<div>) + вставить данные(подсказку,сообщение)
 	function createDialog(target, hint, dialogClass)
 	{
@@ -25,12 +38,11 @@ var dialog = {
 	
 	//вставить в документ + css(позиция)
 	function insertDialog(div, target)
-	{	//вставляем 
+	{	
+		//вставляем 
 		document.body.insertBefore(div,null);
-		
 		//данные(размер + позиция) слушателя
 		let communion = document.getElementById("dialogBox");
-		
 		if (communion) {
 			//данные(размер + позиция) диалога
 			let amountCommunion = communion.getBoundingClientRect();
@@ -41,7 +53,6 @@ var dialog = {
 			if (target.offsetTop < window.innerHeight/2) {
 				communion.style.cssText = "position:absolute; top:"+((target.offsetTop + target.offsetHeight) + 5)+"px; left:"+target.offsetLeft+"px;";
 			}
-			
 		}
 	}
 	
@@ -57,25 +68,37 @@ var dialog = {
 	{
 		this.event = event || window.event;
 		let target = event.target || event.srcElement;
-		
-		for(let key in dialog.dialogObject){
-		
+		for (let key in dialogObject) {
 			if (target.getAttribute("data-dialog") == key) {
-				createDialog(target,dialog.dialogObject[key],key);
+				createDialog(target,dialogObject[key],key);
 			}
 		}
 	}//end eventDialog();
 	
 	//установка слушателя на событие
-	for(let handler in dialog.dialogObject){
-		let listener = document.querySelector("[data-dialog="+handler+"]");
-		//установка слушателя
-		listener.addEventListener("mouseenter",{handleEvent:eventDialog});
-		listener.addEventListener("mouseleave",{handleEvent:deleteDialog});
-	}
+	if (Object.keys(dialogObject).length == 0) {
+		//подождать загрузки файла .json
+		setTimeout(function()
+		{
+			//обработать объект с данными
+			for(let handler in dialogObject){
+				let listener = document.querySelector("[data-dialog="+handler+"]");
+				//установить слушателя
+				listener.addEventListener("mouseenter",{handleEvent:eventDialog});
+				listener.addEventListener("mouseleave",{handleEvent:deleteDialog});
+			}
+		},3000);
+	} else {
+		//обработать объект с данными
+		for(let handler in dialogObject){
+			let listener = document.querySelector("[data-dialog="+handler+"]");
+			//установить слушателя
+			listener.addEventListener("mouseenter",{handleEvent:eventDialog});
+			listener.addEventListener("mouseleave",{handleEvent:deleteDialog});
+		}
+	};
 
-	}//end_setDialog
+	}//end_getDialog
 }//end_dialog
 /*===============================Dialog-end==================================*/
 dialog.getDialog();
-};
