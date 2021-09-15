@@ -1,22 +1,20 @@
-@import url(css/reset.css);
-@import url(css/default.css);
-@import url(css/style.css);
-
-.dialog_img1,
-.dialog_img2,
-.dialog_img3,
-.dialog_img4,
-.dialog_h1,
-.dialog_portfolio
+#dialogBox
 {
-padding:1rem; 
+width:300px;
+max-width:300px;
+padding:16px;
+box-shadow:hsla(0,0%,0%,.6) 0 6px 6px;
+border:1px solid hsla(0,0%,100%,1);
 
+opacity:0;
+text-shadow:1px 1px 1px hsla(0,0%,0%,.4);
+text-indent:0px;
+text-align:left;
+white-space: pre-line;
+font:italic normal 16px/1.4 'Arial Narrow', sans-serif;
 color:hsla(0,0%,100%,1);
-box-shadow:hsla(0,0%,0%,.6) 0 .4rem .4rem;
 background:hsla(240,100%,50%,1);
-z-index:999;
-}
-.dialog_h1
-{
-margin-left:5vw;
+z-index:-10;
+
+transition:all .5s linear 0s;
 }
